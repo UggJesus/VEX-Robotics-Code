@@ -25,10 +25,13 @@
 int oldButtonSevenUp = 0; //saves button state
 int oldButtonSevenDown = 0;
 
-int SHOOT_SPEED = 65;  //shoot speed to be changed
-int DRAINED_SPEED = 67;  //shoot speed for use with drained batteries
-int MIDFIELD_SPEED = 58;  //shoot speed for midfield shooting
-const int DEFAULT_SPEED = 65; //default shoot speed for reset
+int SHOOT_SPEED = 61;  //shoot speed to be changed
+int DRAINED_SPEED = 63;  //shoot speed for use with drained batteries
+int MIDFIELD_SPEED = 52;  //shoot speed for midfield shooting
+int MIDFIELD_DRAINED_SPEED = 53;
+const int DEFAULT_SHOOT_SPEED = 61; //default shoot speed for reset
+const int DEFAULT_MID_SPEED = 52;
+const int DEFAULT_DRAINED_SPEED = 63;
 
 /////////////////////////////////////////////////////////////////////////////////////////
 //
@@ -142,10 +145,16 @@ task usercontrol()
 			SHOOT_SPEED--;
 			DRAINED_SPEED--;
 			MIDFIELD_SPEED--;
+		} else if (vexRT[Btn7R] == 1) {
+		  SHOOT_SPEED = DEFAULT_SHOOT_SPEED;
+		  MIDFIELD_SPEED = DEFAULT_MID_SPEED;
+		  DRAINED_SPEED = DEFAULT_DRAINED_SPEED;
 		} else if (vexRT[Btn8D] == 1) { //set shoot speed back to starting value
-			SHOOT_SPEED = DEFAULT_SPEED;
+			SHOOT_SPEED = DEFAULT_SHOOT_SPEED;
+			DRAINED_SPEED = DEFAULT_DRAINED_SPEED;
 		} else if (vexRT[Btn8U] == 1) { //set shoot speed back to starting value
 			SHOOT_SPEED = MIDFIELD_SPEED; //set shoot speed to midfield speed
+			DRAINED_SPEED = MIDFIELD_DRAINED_SPEED;
 		} else {
 			motor[topLeftShoot] = 0;
 			motor[topRightShoot] = 0;
